@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <base target="_blank">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="assets/images/teaser-stack.jpg">
+    <title>DemoStream: Batched Task-and-Motion-Plan Optimization for Automated Learning from Demonstration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+    <!-- Set initial theme before first paint to prevent flashing -->
+    <script>
+        (function () {
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <button class="button dark-mode-toggle is-medium" onclick="toggleDarkMode()">
+                <span class="icon">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </span>
+            </button>
+            <div class="content">
+                <h1 class="title is-1 is-size-2-mobile mt-0">DemoStream: Batched <span style="white-space: nowrap;">Task-and-Motion-Plan Optimization for</span> <br> <span style="white-space: nowrap;">Automated Learning from Demonstration</span></h1>
+
+                <div class="author-info">
+                    <p class="subtitle">
+                        <div class="is-inline-block is-size-5">Anonymous Authors</div>
+                    </p>
+                    <p class="anon-note">Submission under double-blind review.</p>
+                </div>
+
+                <!-- <div class="columns is-vcentered mt-1">
+                    <div class="column is-narrow">
+                        <a href="assets/DemoStream.pdf" class="button is-size-5 mr-1 mt-2">
+                            <span class="icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </span>
+                            <span>Paper</span>
+                        </a>
+
+                        <a href="#citation" class="button is-size-5 mr-1 mt-2">
+                            <span class="icon">
+                                <i class="fas fa-quote-right"></i>
+                            </span>
+                            <span>Citation</span>
+                        </a>
+                    </div>
+                </div> -->
+
+                <div class="columns is-multiline mt-1">
+                    <div class="column is-one-third">
+                        <div class="image-card">
+                            <img src="assets/images/teaser-stack.jpg" alt="Stack-Two real-world task">
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <div class="image-card">
+                            <img src="assets/images/teaser-banana.jpg" alt="Banana-Bin real-world task">
+                        </div>
+                    </div>
+                    <div class="column is-one-third">
+                        <div class="image-card">
+                            <img src="assets/images/teaser-applelime.jpg" alt="Apple-Lime real-world task">
+                        </div>
+                    </div>
+                </div>
+                <p class="figure-caption">
+                    <strong>Real-World Policy Evaluation.</strong> DemoStream collected 75 real-world demonstrations
+                    and trained visuomotor policies with a success rate of 66%.
+                    Left: stack the red block on the blue block (Stack-Two).
+                    Center: drop the banana into the trash bin (Banana-Bin).
+                    Right: pack the apple and lime on the plate (Apple-Lime).
+                </p>
+
+                <h2 id="abstract" class="title is-4 mb-2">Abstract</h2>
+                <p style="font-size: 0.95em">
+                    Learning from demonstration is an effective strategy for endowing robots with manipulation
+                    capabilities but requires training on datasets comprised of massive amounts of demonstrations.
+                    Existing demonstration collection approaches either require constant human involvement, for
+                    example, via teleoperation, or are specialized for a single task. Task and Motion Planning
+                    (TAMP) systems are able to autonomously solve and therefore generate demonstrations for
+                    general-purpose tasks; however, learning from their demonstrations has proven difficult due to
+                    multi-modality in their solutions. In this work, we build on recent work leveraging GPU
+                    acceleration for TAMP and propose DemoStream, a TAMP system that optimizes demonstration
+                    quality in order to improve behavior cloning success rates. First, we introduce batched TAMP
+                    sampling operations along with a new TAMP algorithm that correspondingly performs batched
+                    constraint satisfaction in order to explore many solutions in parallel. We conduct simulation
+                    experiments ablating different action spaces, cost functions, and batch sizes to analyze the
+                    effect of these choices on downstream policy success rates. Finally, we show that we can
+                    leverage the safety guarantees of TAMP to directly collect real-world demonstrations at an
+                    average rate of 66 demos per hour.
+                </p>
+
+                <!-- Citation section -->
+                <h3 id="citation" class="title is-4">Citation</h3>
+                <p class="anon-note">
+                    This work is currently under anonymous double-blind review. A full citation will be added upon
+                    publication.
+                </p>
+
+                <hr class="divider">
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <p class="has-text-weight-light">Anonymized project page.</p>
+                        </div>
+                    </div>
+                    <div class="level-right">
+                        <div class="level-item">
+                            <p class="has-text-weight-light">Updated September 2026</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Handle dark/light theme toggling
+        const updateTheme = (isDark) => {
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('theme-icon');
+
+            html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+
+            themeIcon.classList.remove('fa-moon', 'fa-sun');
+            themeIcon.classList.add(isDark ? 'fa-sun' : 'fa-moon');
+        };
+
+        const toggleDarkMode = () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            updateTheme(!isDark);
+        };
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+            updateTheme(e.matches);
+        });
+    </script>
+</body>
+</html>
