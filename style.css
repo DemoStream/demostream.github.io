@@ -91,6 +91,12 @@ a:hover {
     display: block;
 }
 
+.image-card video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 .figure-caption {
     font-size: 0.9em;
     margin-top: 0.75rem;
