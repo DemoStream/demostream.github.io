@@ -56,12 +56,34 @@
                     </div>
                 </div> -->
 
-                <h2 id="video" class="title is-4">Supplementary Video</h2>
-                <div class="image-card">
-                    <video controls playsinline width="100%">
-                        <source src="assets/videos/supplementary.mp4" type="video/mp4">
-                    </video>
+                <h2 id="overview" class="title is-4 mb-2">Overview</h2>
+                <p style="font-size: 0.95em">
+                    <b>DemoStream</b> is a sampling-based Task and Motion Planning (TAMP) system that uses <b>batch optimization</b> to fully automate demonstration generation while explicitly optimizing <b>demonstration quality</b> for imitation learning, producing consistent, low-variance trajectories that are easier for a policy to learn from.
+                </p>
+                <figure class="image-card diagram-figure">
+                    <img src="assets/images/pipeline.png" alt="DemoStream pipeline: LLM agent + TAMP (lazy skeleton search and computation-graph batch optimization) produces demonstrations at 66 demos/hour, which behavior cloning turns into a visuomotor policy with 67% success rate.">
+                </figure>
+                <div class="video-grid cols-2">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline>
+                            <source src="assets/videos/demo1.mp4" type="video/mp4">
+                        </video>
+                        <div class="caption"><span class="label">Automated Demonstration Collection</span><span class="sr">Batched TAMP Optimization</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline>
+                            <source src="assets/videos/demo2.mp4" type="video/mp4">
+                        </video>
+                        <div class="caption"><span class="label">Learned Visuomotor Policy</span><span class="sr">66 demos/hour · 67% success rate</span></div>
+                    </div>
                 </div>
+                <h3 class="title is-5 mt-4 mb-2">Contributions</h3>
+                <ul style="font-size: 0.95em">
+                    <li>New TAMP <b>batched samplers</b> and computation graph optimizers for GPU-accelerated plan optimization.</li>
+                    <li>Imitation-learning analysis of the effect of <b>action space</b>, <b>cost function</b>, and <b>batch size</b> on policy success rates.</li>
+                    <li>Safe automated <b>real-world</b> demonstration collection and policy learning.</li>
+                    <li>Simulation experiments demonstrating <b>long-horizon</b>, <b>multi-robot</b>, and <b>agentic</b> DemoStream capabilities.</li>
+                </ul>
 
                 <h2 id="abstract" class="title is-4 mb-2">Abstract</h2>
                 <p style="font-size: 0.95em">
@@ -82,8 +104,242 @@
                     average rate of 66 demos per hour.
                 </p>
 
+                <h2 id="video" class="title is-4 mt-5">Supplementary Video</h2>
+                <div class="image-card">
+                    <video controls playsinline width="100%">
+                        <source src="assets/videos/supplementary.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <h2 id="ablation-cost" class="title is-4 mt-5">Demonstrations Across Cost Functions</h2>
+                <p style="font-size: 0.95em">
+                    <b>Task-space</b> cost optimization minimizes camera motion, leading to higher success rates
+                    due to smaller observation distributions. Videos use the <b>Joint-Abs</b> action space and
+                    <b>T-PRM</b> motion planner.
+                </p>
+                <div class="video-grid cols-3">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo3.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Cost: Zero</span><span class="sr">Policy SR: 0%</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo4.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Cost: Joint</span><span class="sr">Policy SR: 34%</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo5.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Cost: Task</span><span class="sr">Policy SR: 76%</span></div>
+                    </div>
+                </div>
+
+                <h2 id="ablation-motion" class="title is-4 mt-5">Demonstrations Across Motion Planners</h2>
+                <p style="font-size: 0.95em">
+                    Joint-space motion planners find efficient trajectories but produce long end-effector
+                    (and wrist-camera) paths, note the &ldquo;looping behavior&rdquo; in the first three planners.
+                    <b>Task-space</b> motion planning (T-PRM) directly minimizes camera motion. Videos use the
+                    <b>Joint-Abs</b> action space and <b>Task</b> cost function.
+                </p>
+                <div class="video-grid cols-4">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo6.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">cuRoboV2</span><span class="sr">Policy SR: 2%</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo7.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">J-PRM</span><span class="sr">Policy SR: 0%</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo8.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">J-PRM:T</span><span class="sr">Policy SR: 0%</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo5.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">T-PRM</span><span class="sr">Policy SR: 76%</span></div>
+                    </div>
+                </div>
+
+                <h2 id="ablation-batch" class="title is-4 mt-5">Demonstrations as Batch Size Increases</h2>
+                <p style="font-size: 0.95em">
+                    Larger optimization <b>batch sizes</b> reduce demonstration variance and are easier to learn.
+                </p>
+                <div class="video-grid cols-5">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo9.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Batch 1</span><span class="sr">Policy SR: 54%</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo10.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Batch 4</span><span class="sr">Policy SR: 84%</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo11.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Batch 16</span><span class="sr">Policy SR: 91%</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo12.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Batch 64</span><span class="sr">Policy SR: 94%</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo13.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Batch 256</span><span class="sr">Policy SR: 94%</span></div>
+                    </div>
+                </div>
+
+                <h2 id="real-world" class="title is-4 mt-5">Simulation and Real-World Demonstrations</h2>
+                <p style="font-size: 0.95em">
+                    DemoStream leverages <b>GPU-accelerated simulation</b> to evaluate ~100 TAMP plans at a time
+                    in tiled environments, then trains policies on the successful demonstrations. The same system
+                    is used for direct real- and open-world automated demonstration generation.
+                </p>
+                <div class="video-grid cols-3">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo14.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack-Three</span><span class="sr">100 Simulation Environments</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo15.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Banana-Bin</span><span class="sr">75 Real-World Demos</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo16.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Apple-Lime</span><span class="sr">75 Real-World Demos</span></div>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.95em; margin-top: 0.75rem;">
+                    Learned policy rollouts on the real robot:
+                </p>
+                <div class="video-grid cols-3">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo17.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Apple-Lime</span><span class="sr">12/20 Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo18.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Banana-Bin</span><span class="sr">15/20 Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo19.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack-Two</span><span class="sr">13/20 Policy SR</span></div>
+                    </div>
+                </div>
+
+                <h2 id="multi-arm" class="title is-4 mt-5">Multi-Arm Demonstration Generation</h2>
+                <p style="font-size: 0.95em">
+                    DemoStream optionally produces several multi-arm strategies based on the initial proximity
+                    of objects to each robot. Multi-Arm (Joint-Abs, Task, T-PRM) achieves <b>50% Diffusion Policy SR</b>.
+                </p>
+                <div class="video-grid cols-3">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo20a.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Strategy 1</span><span class="sr">Left stacks red, right stacks green</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo20b.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Strategy 2</span><span class="sr">Right stacks red, left stacks green</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo20c.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Strategy 3</span><span class="sr">Right stacks red, right stacks green</span></div>
+                    </div>
+                </div>
+
+                <h2 id="sim-tasks" class="title is-4 mt-5">Simulation Task Suite</h2>
+                <p style="font-size: 0.95em">
+                    Policy success rates across a suite of long-horizon stacking and packing tasks, including
+                    blocked variants that require reasoning about obstruction.
+                </p>
+                <div class="video-grid cols-4">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo21.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack-Two</span><span class="sr">90% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo27.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack-Three</span><span class="sr">86% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo22.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack-Four</span><span class="sr">66% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo26.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack-Bin</span><span class="sr">94% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo23.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Pack-Two</span><span class="sr">96% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo24.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Pack-Either</span><span class="sr">82% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo25.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">50% Blocked</span><span class="sr">86% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo28.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">100% Blocked</span><span class="sr">90% Policy SR</span></div>
+                    </div>
+                </div>
+
+                <h2 id="robolab" class="title is-4 mt-5">RoboLab Benchmark Demonstrations</h2>
+                <p style="font-size: 0.95em">
+                    An LLM agent interprets natural-language goals for DemoStream, letting us lazily implement
+                    novel open-world goals in a batchable manner.
+                </p>
+                <div class="video-grid cols-4">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo29.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Rubiks-Bowl</span><span class="sr">86% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo31.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Rubiks-Near</span><span class="sr">96% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo30.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Rubiks-Left</span><span class="sr">48% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo34.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Banana-Bowl</span><span class="sr">78% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo35.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Rubiks-Banana</span><span class="sr">18% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo33.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Mustard-Raisin</span><span class="sr">88% Policy SR</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo32.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Mustard-Bin</span><span class="sr">86% Policy SR</span></div>
+                    </div>
+                </div>
+
+                <p style="font-size: 0.95em; margin-top: 0.75rem;">
+                    Example TAMP rollouts on RoboLab tasks:
+                </p>
+                <div class="video-grid cols-3">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo36.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">RoboLab TAMP Example</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo37.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">RoboLab TAMP Example</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/demo38.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack-Four TAMP</span></div>
+                    </div>
+                </div>
+
                 <!-- Citation section -->
-                <h3 id="citation" class="title is-4">Citation</h3>
+                <h3 id="citation" class="title is-4 mt-5">Citation</h3>
                 <p class="anon-note">
                     This work is currently under anonymous double-blind review. A full citation will be added upon
                     publication.
