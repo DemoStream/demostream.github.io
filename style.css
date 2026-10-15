@@ -183,6 +183,121 @@ a:hover {
     background-color: #e0e0e0;
 }
 
+/* Code blocks + inline code for the planning-language walkthrough */
+pre.code-block {
+    background-color: #f5f5f5;
+    border: 1px solid #d8d8d8;
+    border-radius: 6px;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.82em;
+    line-height: 1.45;
+    overflow-x: auto;
+    margin: 0.5rem 0 1rem 0;
+    color: #2a2a2a;
+}
+
+code.inline {
+    background-color: #efefef;
+    border-radius: 4px;
+    padding: 0.05rem 0.3rem;
+    font-size: 0.9em;
+    color: #363636;
+}
+
+[data-theme="dark"] pre.code-block {
+    background-color: #262626;
+    border-color: #3a3a3a;
+    color: #e8e8e8;
+}
+
+[data-theme="dark"] code.inline {
+    background-color: #2e2e2e;
+    color: #f0f0f0;
+}
+
+details.walkthrough {
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 0.4rem 0.9rem;
+    margin-bottom: 0.6rem;
+    background-color: var(--card-background);
+}
+
+details.walkthrough > summary {
+    cursor: pointer;
+    font-weight: 500;
+    padding: 0.35rem 0;
+    list-style: none;
+    color: var(--text);
+}
+
+details.walkthrough > summary::marker,
+details.walkthrough > summary::-webkit-details-marker { display: none; }
+
+details.walkthrough > summary::before {
+    content: "▸ ";
+    display: inline-block;
+    width: 1em;
+    transition: transform 0.15s ease;
+}
+
+details.walkthrough[open] > summary::before {
+    content: "▾ ";
+}
+
+details.walkthrough > *:not(summary) {
+    font-size: 0.93em;
+}
+
+.toc {
+    border: 1px solid var(--card-border);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    background-color: var(--card-background);
+    margin: 1rem 0 1.5rem 0;
+    font-size: 0.92em;
+}
+
+.toc-title {
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--text);
+}
+
+.toc ol {
+    columns: 2;
+    column-gap: 1.75rem;
+    margin: 0;
+    padding-left: 1.25rem;
+}
+
+.toc li {
+    break-inside: avoid;
+    margin-bottom: 0.1rem;
+}
+
+.toc .toc-sub {
+    list-style: disc;
+    padding-left: 1.2rem;
+    margin: 0.1rem 0 0.25rem 0;
+    font-size: 0.92em;
+    opacity: 0.85;
+}
+
+.toc .toc-sub li { margin-bottom: 0.05rem; }
+
+.toc a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+.toc a:hover { color: #3273dc; }
+[data-theme="dark"] .toc a:hover { color: #64b5f6; }
+
+@media (max-width: 600px) {
+    .toc ol { columns: 1; }
+}
+
 .figure-caption {
     font-size: 0.9em;
     margin-top: 0.75rem;

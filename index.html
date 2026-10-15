@@ -38,23 +38,35 @@
                     <p class="anon-note">Submission under double-blind review.</p>
                 </div>
 
-                <!-- <div class="columns is-vcentered mt-1">
+                <div class="columns is-vcentered mt-1">
                     <div class="column is-narrow">
-                        <a href="assets/DemoStream.pdf" class="button is-size-5 mr-1 mt-2">
+                        <a href="paper.pdf" class="button is-size-5 mr-1 mt-2">
                             <span class="icon">
                                 <i class="fas fa-file-pdf"></i>
                             </span>
                             <span>Paper</span>
                         </a>
 
-                        <a href="#citation" class="button is-size-5 mr-1 mt-2">
+                        <button class="button is-size-5 mr-1 mt-2" disabled title="Code release pending">
                             <span class="icon">
-                                <i class="fas fa-quote-right"></i>
+                                <i class="fas fa-code"></i>
                             </span>
-                            <span>Citation</span>
-                        </a>
+                            <span>Code</span>
+                        </button>
                     </div>
-                </div> -->
+                </div>
+
+                <nav class="toc" aria-label="Table of contents">
+                    <div class="toc-title">Contents</div>
+                    <ol>
+                        <li><a href="#overview" target="_self">Overview</a></li>
+                        <li><a href="#abstract" target="_self">Abstract</a></li>
+                        <li><a href="#video" target="_self">Supplementary Video</a></li>
+                        <li><a href="#experiments" target="_self">Experiments</a></li>
+                        <li><a href="#language" target="_self">Problem Formulation</a></li>
+                        <li><a href="#citation" target="_self">Citation</a></li>
+                    </ol>
+                </nav>
 
                 <h2 id="overview" class="title is-4 mb-2">Overview</h2>
                 <p style="font-size: 0.95em">
@@ -111,7 +123,14 @@
                     </video>
                 </div>
 
-                <h2 id="ablation-cost" class="title is-4 mt-5">Demonstrations Across Cost Functions</h2>
+                <h2 id="experiments" class="title is-4 mt-5">Experiments</h2>
+                <p style="font-size: 0.95em">
+                    We ablate the ingredients of DemoStream &mdash; <b>cost function</b>, <b>motion planner</b>, and
+                    <b>batch size</b> &mdash; then show it in action across real-world, multi-arm, long-horizon, and
+                    agentic open-world settings.
+                </p>
+
+                <h3 id="ablation-cost" class="title is-5 mt-4">Demonstrations Across Cost Functions</h3>
                 <p style="font-size: 0.95em">
                     <b>Task-space</b> cost optimization minimizes camera motion, leading to higher success rates
                     due to smaller observation distributions. Videos use the <b>Joint-Abs</b> action space and
@@ -132,7 +151,7 @@
                     </div>
                 </div>
 
-                <h2 id="ablation-motion" class="title is-4 mt-5">Demonstrations Across Motion Planners</h2>
+                <h3 id="ablation-motion" class="title is-5 mt-4">Demonstrations Across Motion Planners</h3>
                 <p style="font-size: 0.95em">
                     Joint-space motion planners find efficient trajectories but produce long end-effector
                     (and wrist-camera) paths, note the &ldquo;looping behavior&rdquo; in the first three planners.
@@ -158,7 +177,7 @@
                     </div>
                 </div>
 
-                <h2 id="ablation-batch" class="title is-4 mt-5">Demonstrations as Batch Size Increases</h2>
+                <h3 id="ablation-batch" class="title is-5 mt-4">Demonstrations as Batch Size Increases</h3>
                 <p style="font-size: 0.95em">
                     Larger optimization <b>batch sizes</b> reduce demonstration variance and are easier to learn.
                 </p>
@@ -185,7 +204,7 @@
                     </div>
                 </div>
 
-                <h2 id="real-world" class="title is-4 mt-5">Simulation and Real-World Demonstrations</h2>
+                <h3 id="real-world" class="title is-5 mt-4">Simulation and Real-World Demonstrations</h3>
                 <p style="font-size: 0.95em">
                     DemoStream leverages <b>GPU-accelerated simulation</b> to evaluate ~100 TAMP plans at a time
                     in tiled environments, then trains policies on the successful demonstrations. The same system
@@ -224,7 +243,7 @@
                     </div>
                 </div>
 
-                <h2 id="multi-arm" class="title is-4 mt-5">Multi-Arm Demonstration Generation</h2>
+                <h3 id="multi-arm" class="title is-5 mt-4">Multi-Arm Demonstration Generation</h3>
                 <p style="font-size: 0.95em">
                     DemoStream optionally produces several multi-arm strategies based on the initial proximity
                     of objects to each robot. Multi-Arm (Joint-Abs, Task, T-PRM) achieves <b>50% Diffusion Policy SR</b>.
@@ -244,7 +263,7 @@
                     </div>
                 </div>
 
-                <h2 id="sim-tasks" class="title is-4 mt-5">Simulation Task Suite</h2>
+                <h3 id="sim-tasks" class="title is-5 mt-4">Simulation Task Suite</h3>
                 <p style="font-size: 0.95em">
                     Policy success rates across a suite of long-horizon stacking and packing tasks, including
                     blocked variants that require reasoning about obstruction.
@@ -284,7 +303,7 @@
                     </div>
                 </div>
 
-                <h2 id="robolab" class="title is-4 mt-5">RoboLab Benchmark Demonstrations</h2>
+                <h3 id="robolab" class="title is-5 mt-4">RoboLab Benchmark Demonstrations</h3>
                 <p style="font-size: 0.95em">
                     An LLM agent interprets natural-language goals for DemoStream, letting us lazily implement
                     novel open-world goals in a batchable manner.
@@ -337,6 +356,156 @@
                         <div class="caption"><span class="label">Stack-Four TAMP</span></div>
                     </div>
                 </div>
+
+                <h2 id="language" class="title is-4 mt-5">Problem Formulation</h2>
+                <p style="font-size: 0.95em">
+                    DemoStream is written in <b>ScheduleStream</b>, a Python language for planning problems with
+                    continuous <b>samplers</b>. A problem is declarative where it can be &mdash; as predicates, functions
+                    and actions &mdash; and procedural where it must be, as Python functions that test, score or sample
+                    continuous values (configurations, grasps, placements, trajectories). The walkthrough below uses
+                    DemoStream's single-robot, two-object packing task as a running example: pack both the red and
+                    blue blocks onto the plate.
+                </p>
+
+                <details class="walkthrough">
+                    <summary>1. Constants</summary>
+                    <p>A problem is over a universe of <b>constants</b>, atomic values of any Python type:
+                    discrete constants like the strings <code class="inline">"red"</code>, <code class="inline">"blue"</code>,
+                    <code class="inline">"plate"</code>, <code class="inline">"table"</code>; and continuous constants, such as
+                    PyTorch tensors for robot configurations <code class="inline">q &isin; &real;<sup>d</sup></code> and object
+                    placement / grasp poses <code class="inline">p, g &isin; SE(3)</code>.</p>
+<pre class="code-block">objects = ["red", "blue", "plate", "table"]
+q0      = torch.tensor([...])          # initial robot configuration
+p_r, p_b, p_p = ...                    # SE(3) poses of each object</pre>
+                </details>
+
+                <details class="walkthrough">
+                    <summary>2. Predicates and functions</summary>
+                    <p>Relationships among constants are described by <b>functions</b> &mdash; relations from a tuple of
+                    inputs to one output &mdash; and <b>predicates</b> &mdash; functions whose output is a Boolean. Every
+                    predicate and function specifies a <code class="inline">cond</code> that conveys typing information
+                    about its parameters. Parameters begin with <code class="inline">?</code>.</p>
+<pre class="code-block">Conf      = Predicate("?q")
+Object    = Predicate("?obj")
+Placement = Predicate("?obj ?p")
+Grasp     = Predicate("?obj ?g")
+
+# Fluent (state-variable) functions
+At        = Function()                                  # current robot configuration
+Holding   = Function()                                  # object the robot holds, or None
+Attached  = Function("?obj", cond=[Object("?obj")])     # parent frame in the kinematic tree
+Pose      = Function("?obj", cond=[Object("?obj")])     # SE(3) pose w.r.t. the parent frame</pre>
+                    <p>Any undeclared predicate value is <code class="inline">False</code> and any undeclared function
+                    value is <code class="inline">None</code>, so the closed-world assumption keeps the state concise.</p>
+                </details>
+
+                <details class="walkthrough">
+                    <summary>3. Initial state and goal</summary>
+                    <p>A <b>state</b> is the collection of function values. Assignments use <code class="inline">&lt;=</code>;
+                    equalities (which may appear in goals or preconditions) use <code class="inline">==</code>.</p>
+<pre class="code-block">initial_state = [
+    At() &lt;= q0,  Holding() &lt;= None,
+    Pose(red) &lt;= p_r,   Pose(blue) &lt;= p_b,   Pose(plate) &lt;= p_p,
+    Attached(red) &lt;= table, Attached(blue) &lt;= table, Attached(plate) &lt;= table,
+]
+
+goal = [Attached(red) == plate, Attached(blue) == plate]      # pack both blocks</pre>
+                </details>
+
+                <details class="walkthrough">
+                    <summary>4. Actions &mdash; move, pick, place</summary>
+                    <p>An <code class="inline">Action</code> has <code class="inline">params</code> (variables bound when
+                    it is applied), <code class="inline">cond</code> (what must hold now), <code class="inline">eff</code>
+                    (what the state becomes), and <code class="inline">cost</code>. Three actions suffice for the packing
+                    domain:</p>
+<pre class="code-block">move = Action(
+    params = "?q1 ?t ?q2",
+    cond   = [Motion("?q1 ?t ?q2"), At() == "?q1"],
+    eff    = [At() &lt;= "?q2"],
+    cost   = [Distance("?q1 ?q2")],
+)
+
+pick = Action(
+    params = "?q ?obj ?g ?p",
+    cond   = [Kin("?q ?obj ?g ?p"),  Holding() == None,
+              Pose("?obj") == "?p",  At() == "?q"],
+    eff    = [Holding() &lt;= "?obj", Pose("?obj") &lt;= "?g",
+              Attached("?obj") &lt;= None],
+)
+
+place = Action(
+    params = "?q ?obj ?g ?p ?o2 ?p2",
+    cond   = [Kin("?q ?obj ?g ?p"), Holding() == "?obj",
+              Support("?obj ?p ?o2 ?p2"),
+              Pose("?o2") == "?p2", Pose("?obj") == "?g", At() == "?q"] +
+             [~Collision("?obj", Pose("?obj"), o, Pose(o)) for o in objects],
+    eff    = [Holding() &lt;= None,  Pose("?obj") &lt;= "?p",
+              Attached("?obj") &lt;= "?o2"],
+)</pre>
+                    <p>Note that <code class="inline">move</code>'s cost is a procedural
+                    <code class="inline">Distance</code> function of the two configurations &mdash; this is the knob
+                    DemoStream's <i>cost-function</i> ablation turns, choosing between a joint-space and a task-space
+                    distance to shape the demonstration distribution.</p>
+                </details>
+
+                <details class="walkthrough">
+                    <summary>5. Streams &mdash; where continuous values come from</summary>
+                    <p>Actions above refer to static predicates like <code class="inline">Grasp</code>,
+                    <code class="inline">Support</code>, <code class="inline">Kin</code>, and
+                    <code class="inline">Motion</code> whose satisfying assignments must come from somewhere.
+                    <b>Streams</b> are conditional samplers: given a tuple of input constants, they yield output
+                    constants certified to satisfy a predicate. Streams compose into a pipeline
+                    <code class="inline">grasps &rarr; ik_qs &rarr; motions</code>.</p>
+<pre class="code-block">def grasp_gen(obj: str) -&gt; Iterator[Tuple[Tensor]]:
+    ...                                 # yields grasp poses for ?obj
+
+grasps = Stream(Grasp, inps="?obj", gen=grasp_gen)</pre>
+                </details>
+
+                <details class="walkthrough">
+                    <summary>6. Batched streams &mdash; the DemoStream contribution</summary>
+                    <p>A regular stream consumes <i>one</i> input at a time. That is limiting when we want to leverage
+                    advances in batched inverse kinematics to solve many IK subproblems simultaneously, for different
+                    grasp and placement combinations. DemoStream augments the stream contract: a
+                    <code class="inline">BatchStream</code> takes a <i>list</i> of input tuples and returns a list of
+                    output tuples per input, with a maximum <code class="inline">batch</code> size.</p>
+<pre class="code-block">def ik_fn(inp: List[Tuple[str, Tensor, Tensor]]) \
+        -&gt; List[List[Tuple[Tensor]]]:
+    ...                                 # one GPU IK call per batch
+
+ik_qs = BatchStream(Kin, inps="?obj ?g ?p", fn=ik_fn, batch=256)</pre>
+                    <p>Placement generation, IK, and motion planning all take continuous inputs and all become batched:</p>
+<pre class="code-block">placements = BatchStream(Support, inps="?obj ?o2 ?p2", fn=support_fn, batch=inf)
+ik_qs      = BatchStream(Kin,     inps="?obj ?g ?p",   fn=ik_fn,      batch=256)
+motions    = BatchStream(Motion,  inps="?q1 ?q2",      fn=motion_fn,  batch=1)
+
+Distance   = Function("?q1 ?q2", fn=distance,  batch=inf)   # cost function
+Collision  = Predicate("?obj1 ?p1 ?o2 ?p2", test=collision, batch=inf)</pre>
+                </details>
+
+                <details class="walkthrough">
+                    <summary>7. How the planner solves it</summary>
+                    <p>DemoStream alternates two phases:</p>
+                    <ol>
+                        <li><b>Schedule.</b> A sequential search over actions, with placeholders for every unbound
+                        continuous value, finds a candidate plan <code class="inline">&pi;</code>.</li>
+                        <li><b>Sample.</b> The streams on the critical path are called, in batch, so that the plan's
+                        parameters have real values. If no satisfying binding is found at or below the current cost
+                        budget, the planner retries another schedule.</li>
+                    </ol>
+                    <p>For a plan that picks the red block and places it on the plate,</p>
+<pre class="code-block">plan = [move(q0, "?t1", "?q1"),
+        pick("?q1", red, "?g", p_r),
+        move("?q1", "?t2", "?q2"),
+        place("?q2", red, "?g", "?p", plate, p_p)]</pre>
+                    <p>the retraced stream plan is <code class="inline">placements &rarr; grasps &rarr; ik_qs &rarr; motions</code>.
+                    If <code class="inline">grasps</code> and <code class="inline">placements</code> each generate 1,000
+                    outputs per input, the bottleneck is <code class="inline">ik_qs</code> at
+                    <code class="inline">batch=256</code>; sorting candidate bindings by cost and filtering by
+                    constraints keeps the <i>best</i> 256 pairs on the GPU. That is what powers both the
+                    <a href="#ablation-batch">batch-size</a> and
+                    <a href="#ablation-cost">cost-function</a> ablations above.</p>
+                </details>
 
                 <!-- Citation section -->
                 <h3 id="citation" class="title is-4 mt-5">Citation</h3>
