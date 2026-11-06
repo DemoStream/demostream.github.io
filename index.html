@@ -61,8 +61,8 @@
                     <ol>
                         <li><a href="#overview" target="_self">Overview</a></li>
                         <li><a href="#abstract" target="_self">Abstract</a></li>
-                        <li><a href="#video" target="_self">Supplementary Video</a></li>
                         <li><a href="#experiments" target="_self">Experiments</a></li>
+                        <li><a href="#video" target="_self">Supplementary Video</a></li>
                         <li><a href="#language" target="_self">Problem Formulation</a></li>
                         <li><a href="#citation" target="_self">Citation</a></li>
                     </ol>
@@ -116,19 +116,127 @@
                     average rate of 66 demos per hour.
                 </p>
 
-                <h2 id="video" class="title is-4 mt-5">Supplementary Video</h2>
-                <div class="image-card">
-                    <video controls playsinline width="100%">
-                        <source src="assets/videos/supplementary.mp4" type="video/mp4">
-                    </video>
-                </div>
-
                 <h2 id="experiments" class="title is-4 mt-5">Experiments</h2>
                 <p style="font-size: 0.95em">
                     We ablate the ingredients of DemoStream &mdash; <b>cost function</b>, <b>motion planner</b>, and
                     <b>batch size</b> &mdash; then show it in action across real-world, multi-arm, long-horizon, and
                     agentic open-world settings.
                 </p>
+                <p style="font-size: 0.95em; margin-top: 0.75rem;">
+                    As a headline result, we fine-tune <b>GR00T 2</b> on the combined real-world datasets, training a
+                    single <b>multi-task</b> visuomotor policy that handles all three tasks:
+                </p>
+                <div class="image-card" style="margin-bottom: 1rem;">
+                    <video autoplay loop muted playsinline>
+                        <source src="assets/videos/gr00t-multitask.mp4" type="video/mp4">
+                    </video>
+                </div>
+
+                <h3 id="robodojo" class="title is-5 mt-4">RoboDojo Benchmark Demonstrations</h3>
+                <p style="font-size: 0.95em">
+                    DemoStream leverages <b>agentic action and stream design</b> to solve <b>bimanual</b> problems from
+                    the externally authored <b>RoboDojo</b> benchmark, covering 24 task variants across 19 distinct
+                    tasks. Each tile is labeled with its variant: <b>Randomized</b> (random initial state) and the
+                    difficulty level <b>L0&ndash;L4</b>, where higher L requires more complex reasoning.
+                </p>
+                <div class="video-grid cols-4">
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-align_blocks_l0.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Align Blocks</span><span class="sr">L0</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-arrange_largest_number_l1.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Arrange Largest Number</span><span class="sr">L1</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-arrange_largest_number_random_l0.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Arrange Largest Number</span><span class="sr">Randomized &middot; L0</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-build_tower_l1.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Build Tower</span><span class="sr">L1</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-classify_objects_by_language_l0.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Classify Objects by Language</span><span class="sr">L0</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-cover_blocks_l0.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Cover Blocks</span><span class="sr">L0</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-general_pickup_l1.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">General Pickup</span><span class="sr">L1</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-hang_mugs_l2.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Hang Mugs</span><span class="sr">L2</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-hang_mugs_random_l2.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Hang Mugs</span><span class="sr">Randomized &middot; L2</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-play_xylophone_l2.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Play Xylophone</span><span class="sr">L2</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-plug_in_charger_l4.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Plug in Charger</span><span class="sr">L4</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-press_by_number_l0.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Press by Number</span><span class="sr">L0</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-push_T_l1.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Push T</span><span class="sr">L1</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-put_bottles_into_dustbin_l1.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Put Bottles into Dustbin</span><span class="sr">L1</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-solve_equation_l4.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Solve Equation</span><span class="sr">L4</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-sort_nesting_dolls_l2.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Sort Nesting Dolls by Size</span><span class="sr">L2</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-sort_nesting_dolls_random_l0.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Sort Nesting Dolls by Size</span><span class="sr">Randomized &middot; L0</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-stack_blocks_by_language_l0.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack Blocks by Language</span><span class="sr">L0</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-stack_blocks_l1.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack Blocks</span><span class="sr">L1</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-stack_blocks_random_l1.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack Blocks</span><span class="sr">Randomized &middot; L1</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-stack_bowls_l0.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack Bowls</span><span class="sr">L0</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-stack_bowls_random_l2.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Stack Bowls</span><span class="sr">Randomized &middot; L2</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-swap_blocks_l2.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Swap Blocks</span><span class="sr">L2</span></div>
+                    </div>
+                    <div class="video-tile">
+                        <video autoplay loop muted playsinline><source src="assets/videos/robodojo-swap_T_l2.mp4" type="video/mp4"></video>
+                        <div class="caption"><span class="label">Swap T</span><span class="sr">L2</span></div>
+                    </div>
+                </div>
 
                 <h3 id="ablation-cost" class="title is-5 mt-4">Demonstrations Across Cost Functions</h3>
                 <p style="font-size: 0.95em">
@@ -226,7 +334,7 @@
                 </div>
 
                 <p style="font-size: 0.95em; margin-top: 0.75rem;">
-                    Learned policy rollouts on the real robot:
+                    Learned <b>Diffusion Policy</b> rollouts on the real robot, trained per-task:
                 </p>
                 <div class="video-grid cols-3">
                     <div class="video-tile">
@@ -355,6 +463,16 @@
                         <video autoplay loop muted playsinline><source src="assets/videos/demo38.mp4" type="video/mp4"></video>
                         <div class="caption"><span class="label">Stack-Four TAMP</span></div>
                     </div>
+                </div>
+
+                <h2 id="video" class="title is-4 mt-5">Supplementary Video</h2>
+                <p style="font-size: 0.95em">
+                    A consolidated walkthrough of the above results.
+                </p>
+                <div class="image-card">
+                    <video controls playsinline width="100%">
+                        <source src="assets/videos/supplementary.mp4" type="video/mp4">
+                    </video>
                 </div>
 
                 <h2 id="language" class="title is-4 mt-5">Problem Formulation</h2>
